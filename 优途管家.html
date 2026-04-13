@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>优途管家 | 一站式旅行定制专家</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, sans-serif;
+            background: #f5f7fb;
+            color: #0f172a;
+            line-height: 1.4;
+        }
+        .app-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: #ffffff;
+            min-height: 100vh;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
+            position: relative;
+            border-radius: 0;
+        }
+        .header {
+            background: linear-gradient(135deg, #0f2b3d 0%, #1b5e3f 100%);
+            color: white;
+            padding: 1.2rem 1.2rem 2rem 1.2rem;
+            border-radius: 0 0 1.8rem 1.8rem;
+        }
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 1.2rem;
+        }
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+        .logo span {
+            font-size: 0.9rem;
+            background: rgba(255,255,240,0.2);
+            padding: 2px 8px;
+            border-radius: 20px;
+            margin-left: 6px;
+            font-weight: 400;
+        }
+        .vip-badge {
+            background: #facc15;
+            color: #1e3a2f;
+            padding: 0.3rem 0.9rem;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+        .welcome-text {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            margin-bottom: 0.8rem;
+        }
+        .user-greeting {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        .quick-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.8rem;
+            flex-wrap: wrap;
+        }
+        .qa-btn {
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(4px);
+            border-radius: 40px;
+            padding: 0.4rem 1rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .main-content {
+            padding: 1.2rem 1rem 2rem 1rem;
+        }
+        .section-card {
+            background: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 5px 14px rgba(0, 0, 0, 0.03), 0 1px 3px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1.4rem;
+            border: 1px solid #edf2f7;
+            overflow: hidden;
+        }
+        .card-header {
+            padding: 1rem 1.2rem 0.2rem 1.2rem;
+            font-weight: 700;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #1e4620;
+            border-bottom: 1px solid #eef2f8;
+            padding-bottom: 0.7rem;
+            margin-bottom: 0.5rem;
+        }
+        .card-body {
+            padding: 0.8rem 1.2rem 1.2rem 1.2rem;
+        }
+        .form-row {
+            margin-bottom: 1rem;
+        }
+        label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #4a5b6e;
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 0.7rem 0.8rem;
+            border: 1px solid #dce3ec;
+            border-radius: 1rem;
+            font-size: 0.85rem;
+            background: #fefefe;
+            font-family: inherit;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: #1e6f3f;
+            box-shadow: 0 0 0 2px rgba(30,111,63,0.1);
+        }
+        .btn {
+            background: #1e6f3f;
+            color: white;
+            border: none;
+            padding: 0.75rem 1rem;
+            border-radius: 2rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            width: 100%;
+            cursor: pointer;
+            text-align: center;
+        }
+        .btn-outline {
+            background: white;
+            border: 1px solid #1e6f3f;
+            color: #1e6f3f;
+        }
+        .plan-result {
+            background: #f8fafc;
+            border-radius: 1rem;
+            padding: 0.8rem;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            border-left: 3px solid #1e6f3f;
+            display: none;
+        }
+        .booking-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.7rem 0;
+            border-bottom: 1px solid #edf2f7;
+        }
+        .booking-name {
+            font-weight: 500;
+        }
+        .price {
+            color: #1e6f3f;
+            font-weight: 700;
+        }
+        .tag-sm {
+            background: #eef2ff;
+            border-radius: 20px;
+            padding: 0.2rem 0.6rem;
+            font-size: 0.7rem;
+        }
+        .service-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 0.5rem;
+        }
+        .service-chip {
+            background: #f1f5f9;
+            border-radius: 40px;
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .experience-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+        }
+        .exp-item {
+            background: #fef9e6;
+            border-radius: 1rem;
+            padding: 0.7rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        .menu-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #edf2f7;
+            cursor: pointer;
+        }
+        .feedback-area {
+            margin-top: 0.5rem;
+        }
+        .toast-msg {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e293b;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            z-index: 1000;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+    </style>
+</head>
+<body>
+<div class="app-container">
+    <div class="header">
+        <div class="header-top">
+            <div class="logo">优途管家<span>v1.0</span></div>
+            <div class="vip-badge">🌟 体验VIP特权</div>
+        </div>
+        <div class="welcome-text">发现美好旅程</div>
+        <div class="user-greeting">你好，旅行家 ✨</div>
+        <div class="quick-actions">
+            <div class="qa-btn">🎯 AI定制</div>
+            <div class="qa-btn">🎫 我的订单</div>
+            <div class="qa-btn">📞 人工管家</div>
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="section-card">
+            <div class="card-header">🧠 智能定制 · AI+人工管家</div>
+            <div class="card-body">
+                <div class="form-row">
+                    <label>目的地</label>
+                    <input type="text" id="destination" placeholder="例如：大理、长沙、成都" value="云南·大理">
+                </div>
+                <div class="form-row">
+                    <label>出行天数</label>
+                    <select id="days">
+                        <option value="2">2天1晚</option>
+                        <option value="3" selected>3天2晚</option>
+                        <option value="4">4天3晚</option>
+                        <option value="5">5天4晚</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <label>人群属性</label>
+                    <select id="crowd">
+                        <option value="student">🎓 大学生 (高性价比)</option>
+                        <option value="worker" selected>💼 上班族 (错峰微度假)</option>
+                        <option value="elder">🧓 老年人 (康养慢游)</option>
+                        <option value="group">🏢 企业团体 (团建研学)</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <label>特殊偏好 (可选)</label>
+                    <input type="text" id="preference" placeholder="饮食偏好/身体状况/小众体验等" value="摄影打卡+当地美食">
+                </div>
+                <button class="btn" id="generatePlanBtn">✨ AI生成专属行程</button>
+                <div id="planResult" class="plan-result"></div>
+                <div style="margin-top: 12px; font-size: 0.7rem; color: #6c7a91; text-align: center;">💡 人工管家将根据偏好精细化调整，VIP用户享一对一深度定制</div>
+            </div>
+        </div>
+        <div class="section-card">
+            <div class="card-header">📦 一站式预订 · 无需切换APP</div>
+            <div class="card-body">
+                <div class="booking-item"><div><span class="booking-name">🚄 高铁票 (大理往返)</span><br><span class="tag-sm">学生/团体专属通道</span></div><div class="price">¥328起</div></div>
+                <div class="booking-item"><div><span class="booking-name">🏨 古城精品客栈</span><br><span class="tag-sm">合作商家折扣</span></div><div class="price">¥189/晚</div></div>
+                <div class="booking-item"><div><span class="booking-name">🎫 崇圣寺三塔+洱海游船</span></div><div class="price">¥158</div></div>
+                <div class="booking-item"><div><span class="booking-name">🍜 特色美食套餐 (白族风味)</span></div><div class="price">¥68</div></div>
+                <button class="btn btn-outline" id="bookNowBtn" style="margin-top: 8px;">一键预订 · 享VIP折上折</button>
+            </div>
+        </div>
+        <div class="section-card">
+            <div class="card-header">🛎️ 行中服务 · 全程贴心配套</div>
+            <div class="card-body">
+                <div class="service-grid">
+                    <div class="service-chip">✈️ 高铁/机场免费接送</div>
+                    <div class="service-chip">🧳 行李代寄存</div>
+                    <div class="service-chip">🏨 酒店优先入住</div>
+                    <div class="service-chip">📞 24h人工管家</div>
+                    <div class="service-chip">🚨 突发应急响应</div>
+                </div>
+                <div style="background: #eef6ef; border-radius: 1rem; padding: 0.7rem; margin-top: 12px;">
+                    <span style="font-weight: 600;">⭐ VIP专属特权</span><br>
+                    <span style="font-size: 0.75rem;">开通VIP会员，即享接送/寄存/管家实时应答，让旅行无忧</span>
+                    <button class="btn-outline" id="vipUpgradeBtn" style="margin-top: 8px; width: auto; padding: 0.4rem 1rem; font-size:0.75rem;">升级VIP · 体验尊享</button>
+                </div>
+            </div>
+        </div>
+        <div class="section-card">
+            <div class="card-header">🎨 特色体验 · "旅行+"深度玩法</div>
+            <div class="card-body">
+                <div class="experience-list">
+                    <div class="exp-item"><span>🎭 白族扎染非遗体验</span><span class="price">¥98起</span></div>
+                    <div class="exp-item"><span>📸 洱海旅拍 (专业跟拍)</span><span class="price">¥299</span></div>
+                    <div class="exp-item"><span>🌿 康养温泉疗愈套餐</span><span class="price">¥168</span></div>
+                    <div class="exp-item"><span>🍵 小众茶园采茶制茶</span><span class="price">¥128</span></div>
+                </div>
+                <div class="tag-sm" style="margin-top: 8px;">✨ 本地妆造/非遗/旅拍联动，解锁独家记忆</div>
+            </div>
+        </div>
+        <div class="section-card">
+            <div class="card-header">👤 个人中心 · 反馈优化闭环</div>
+            <div class="card-body">
+                <div class="menu-row" id="myOrdersBtn"><span>📋 我的订单</span><span style="color:#1e6f3f;">查看全部 &gt;</span></div>
+                <div class="menu-row" id="vipCenterBtn"><span>⭐ 会员中心 (VIP等级)</span><span style="color:#facc15;">普通会员 → 升级</span></div>
+                <div class="menu-row" id="favoritesBtn"><span>❤️ 收藏的行程/打卡地</span><span>3个收藏</span></div>
+                <div class="feedback-area">
+                    <label style="margin-top: 8px;">📝 旅行体验反馈 (帮助我们持续优化)</label>
+                    <textarea rows="2" id="feedbackInput" placeholder="分享您的建议或好评，让行程更精准..."></textarea>
+                    <button class="btn-outline" id="submitFeedbackBtn" style="margin-top: 8px; width: 100%;">提交反馈 · 优化闭环</button>
+                    <div style="font-size: 0.7rem; color: #4b5563; margin-top: 8px;">✅ 反馈将驱动AI算法迭代，行后优化服务流程</div>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center; font-size: 0.7rem; color: #7e8b9c; padding: 0.5rem 0 1rem;">🧩 基础AI规划免费 · VIP解锁人工管家/接送/专属折扣</div>
+    </div>
+</div>
+<div id="toastMsg" class="toast-msg"></div>
+<script>
+    function showToast(message, duration = 2000) {
+        const toast = document.getElementById('toastMsg');
+        toast.textContent = message;
+        toast.style.opacity = '1';
+        setTimeout(() => { toast.style.opacity = '0'; }, duration);
+    }
+    function planGenerator(destination, days, crowd, preference) {
+        let basePlan = `✨ 您的专属「${destination}」${days}天行程已生成 (AI初版)\n`;
+        if (crowd === 'student') basePlan += `🎓 大学生高性价比路线：\n• Day1: 免费/小众打卡地+青旅推荐，学生票景点优先\n• Day2: 地道夜市美食+结伴拼车攻略\n• Day3: 人文博物馆+集章体验\n✅ 人工管家提示：可叠加学生票专属通道，节省30%门票开支。`;
+        else if (crowd === 'worker') basePlan += `💼 上班族错峰微度假计划：\n• Day1: 下午出发，直达核心景区，夜游精华\n• Day2: 轻徒步+特色咖啡馆，高效打卡\n• Day3: 睡到自然醒，返程前体验旅拍\n💡 人工管家: 已为您避开周末高峰，附加接送服务推荐。`;
+        else if (crowd === 'elder') basePlan += `🧓 康养慢游行程 (配陪游建议)：\n• 每日景点不超过3个，充足休息\n• 安排无障碍接驳车 + 中医理疗体验\n• 地道养生膳食 + 紧急联系保障\n👵 管家服务：可配备专属陪游员，全程安心。`;
+        else basePlan += `🏢 企业团建研学定制方案：\n• Day1: 破冰拓展+场地专属\n• Day2: 非遗手作工坊+团队挑战\n• Day3: 总结复盘+特色晚宴\n📌 人工管家已对接场地与餐饮，支持专属折扣。`;
+        if (preference && preference.trim() !== "") basePlan += `\n\n🎯 根据您的偏好「${preference}」，管家将加入：特色美食探访/个性化摄影点/深度文化讲解，VIP可解锁一对一调整。`;
+        basePlan += `\n\n🔔 本行程可在线可视化调整，点击下方联系人工管家微调。`;
+        return basePlan;
+    }
+    document.getElementById('generatePlanBtn').addEventListener('click', () => {
+        const destination = document.getElementById('destination').value.trim();
+        if (!destination) { showToast('请填写目的地～'); return; }
+        const days = document.getElementById('days').value;
+        const daysText = document.getElementById('days').options[document.getElementById('days').selectedIndex]?.text || days+"天";
+        const crowd = document.getElementById('crowd').value;
+        const preference = document.getElementById('preference').value;
+        const planContent = planGenerator(destination, daysText, crowd, preference);
+        const planResultDiv = document.getElementById('planResult');
+        planResultDiv.style.display = 'block';
+        planResultDiv.innerHTML = `<div style="font-weight:600; margin-bottom:6px;">✈️ 优途AI · 行程框架</div><div style="white-space: pre-line; font-size:0.8rem;">${planContent}</div><div style="margin-top:10px;"><button id="contactManualBtn" style="background:#f3f4f6; border:1px solid #ccc; border-radius:40px; padding:5px 12px; font-size:0.75rem;">📱 联系人工管家精调</button></div>`;
+        const manualBtn = document.getElementById('contactManualBtn');
+        if (manualBtn) manualBtn.addEventListener('click', () => showToast('人工管家已收到请求，稍后将与您1对1沟通 (VIP优先响应)'));
+        showToast('行程规划生成中，人工管家将结合偏好深度优化');
+    });
+    document.getElementById('bookNowBtn')?.addEventListener('click', () => showToast('预订功能演示：已为您整合交通+住宿+门票，VIP享折上折。'));
+    document.getElementById('submitFeedbackBtn')?.addEventListener('click', () => {
+        const feedback = document.getElementById('feedbackInput').value.trim();
+        if (!feedback) { showToast('请写下您的旅行体验或建议～'); return; }
+        showToast('❤️ 感谢您的反馈！平台将根据您的建议优化行程算法与服务流程。');
+        document.getElementById('feedbackInput').value = '';
+    });
+    document.getElementById('vipUpgradeBtn')?.addEventListener('click', () => showToast('升级VIP会员：免费接送、行李寄存、人工管家全配套'));
+    document.getElementById('myOrdersBtn')?.addEventListener('click', () => showToast('查看订单记录：您暂无订单，快去定制旅程吧'));
+    document.getElementById('vipCenterBtn')?.addEventListener('click', () => showToast('VIP会员享接送/折扣/24h管家，每月仅29.9元起'));
+    document.getElementById('favoritesBtn')?.addEventListener('click', () => showToast('收藏的洱海旅拍、非遗体验等，随时可加入行程'));
+    document.querySelectorAll('.exp-item').forEach(item => {
+        item.addEventListener('click', () => showToast(`已选「${item.querySelector('span:first-child')?.innerText}」，可一键加入行程`));
+    });
+    document.querySelectorAll('.booking-item').forEach(item => {
+        item.addEventListener('click', () => showToast('正在预订，一站式结算享平台补贴'));
+    });
+    document.querySelectorAll('.qa-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            if (btn.innerText.includes('AI定制')) showToast('智能定制已准备就绪，请填写上方信息');
+            else if (btn.innerText.includes('订单')) showToast('查看我的订单');
+            else showToast('人工管家在线，VIP优先响应');
+        });
+    });
+</script>
+</body>
+</html>
