@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>优途管家 | 一站式旅行定制专家</title>
+    <title>优途管家 | AI深度定制+社交社区</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -91,7 +91,7 @@
         .section-card {
             background: white;
             border-radius: 1.5rem;
-            box-shadow: 0 5px 14px rgba(0, 0, 0, 0.03), 0 1px 3px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 5px 14px rgba(0, 0, 0, 0.03);
             margin-bottom: 1.4rem;
             border: 1px solid #edf2f7;
             overflow: hidden;
@@ -106,7 +106,6 @@
             color: #1e4620;
             border-bottom: 1px solid #eef2f8;
             padding-bottom: 0.7rem;
-            margin-bottom: 0.5rem;
         }
         .card-body {
             padding: 0.8rem 1.2rem 1.2rem 1.2rem;
@@ -129,11 +128,6 @@
             font-size: 0.85rem;
             background: #fefefe;
             font-family: inherit;
-        }
-        input:focus, select:focus {
-            outline: none;
-            border-color: #1e6f3f;
-            box-shadow: 0 0 0 2px rgba(30,111,63,0.1);
         }
         .btn {
             background: #1e6f3f;
@@ -167,19 +161,11 @@
             align-items: center;
             padding: 0.7rem 0;
             border-bottom: 1px solid #edf2f7;
-        }
-        .booking-name {
-            font-weight: 500;
+            cursor: pointer;
         }
         .price {
             color: #1e6f3f;
             font-weight: 700;
-        }
-        .tag-sm {
-            background: #eef2ff;
-            border-radius: 20px;
-            padding: 0.2rem 0.6rem;
-            font-size: 0.7rem;
         }
         .service-grid {
             display: flex;
@@ -193,34 +179,43 @@
             padding: 0.5rem 1rem;
             font-size: 0.8rem;
             font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 6px;
         }
-        .experience-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0.7rem;
-        }
-        .exp-item {
-            background: #fef9e6;
+        .post-item {
+            background: #f9f9fb;
             border-radius: 1rem;
-            padding: 0.7rem;
+            padding: 0.8rem;
+            margin-bottom: 0.8rem;
+            border-left: 3px solid #1e6f3f;
+        }
+        .post-title {
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+        .post-content {
+            font-size: 0.8rem;
+            color: #4b5563;
+            margin-bottom: 0.5rem;
+        }
+        .post-meta {
+            font-size: 0.7rem;
+            color: #6c7a91;
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
         }
-        .menu-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.8rem 0;
-            border-bottom: 1px solid #edf2f7;
-            cursor: pointer;
+        .chat-message {
+            background: #eef2ff;
+            border-radius: 1rem;
+            padding: 0.6rem;
+            margin-bottom: 0.6rem;
+            font-size: 0.8rem;
         }
-        .feedback-area {
-            margin-top: 0.5rem;
+        .chat-user {
+            font-weight: 600;
+            color: #1e6f3f;
+        }
+        .chat-ai {
+            font-weight: 600;
+            color: #0f2b3d;
         }
         .toast-msg {
             position: fixed;
@@ -237,171 +232,358 @@
             opacity: 0;
             transition: opacity 0.2s;
         }
+        .pref-group {
+            margin-bottom: 12px;
+        }
+        .pref-group > div {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 4px;
+        }
+        .pref-group label {
+            font-weight: normal;
+            font-size: 0.8rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: #f1f5f9;
+            padding: 4px 10px;
+            border-radius: 30px;
+            cursor: pointer;
+        }
+        .profile-note {
+            font-size: 0.8rem;
+            color: #4b5563;
+            background: #f8fafc;
+            padding: 0.8rem 1rem;
+            border-radius: 1rem;
+            margin-top: 0.8rem;
+            border: 1px solid #e2e8f0;
+        }
     </style>
 </head>
 <body>
 <div class="app-container">
     <div class="header">
         <div class="header-top">
-            <div class="logo">优途管家<span>v1.0</span></div>
-            <div class="vip-badge">🌟 体验VIP特权</div>
+            <div class="logo">优途管家<span>v2.0</span></div>
+            <div class="vip-badge">🌟 AI管家+社区</div>
         </div>
         <div class="welcome-text">发现美好旅程</div>
         <div class="user-greeting">你好，旅行家 ✨</div>
         <div class="quick-actions">
             <div class="qa-btn">🎯 AI定制</div>
             <div class="qa-btn">🎫 我的订单</div>
-            <div class="qa-btn">📞 人工管家</div>
+            <div class="qa-btn">🤖 AI管家</div>
         </div>
     </div>
     <div class="main-content">
+        <!-- ========== 第一面：基础信息采集 ========== -->
         <div class="section-card">
-            <div class="card-header">🧠 智能定制 · AI+人工管家</div>
+            <div class="card-header">📝 第一步：完善您的基础信息</div>
             <div class="card-body">
                 <div class="form-row">
-                    <label>目的地</label>
-                    <input type="text" id="destination" placeholder="例如：大理、长沙、成都" value="云南·大理">
-                </div>
-                <div class="form-row">
-                    <label>出行天数</label>
-                    <select id="days">
-                        <option value="2">2天1晚</option>
-                        <option value="3" selected>3天2晚</option>
-                        <option value="4">4天3晚</option>
-                        <option value="5">5天4晚</option>
+                    <label>年龄段</label>
+                    <select id="ageGroup">
+                        <option value="18-25">18-25岁</option>
+                        <option value="26-35" selected>26-35岁</option>
+                        <option value="36-50">36-50岁</option>
+                        <option value="50+">50岁以上</option>
                     </select>
                 </div>
+                <div class="pref-group">
+                    <label>旅游偏好（多选）</label>
+                    <div>
+                        <label><input type="checkbox" value="美食"> 美食</label>
+                        <label><input type="checkbox" value="摄影"> 摄影</label>
+                        <label><input type="checkbox" value="文化"> 文化历史</label>
+                        <label><input type="checkbox" value="探险"> 探险户外</label>
+                        <label><input type="checkbox" value="休闲"> 休闲度假</label>
+                        <label><input type="checkbox" value="艺术"> 艺术体验</label>
+                    </div>
+                </div>
                 <div class="form-row">
-                    <label>人群属性</label>
+                    <label>旅行风格</label>
+                    <select id="travelStyle">
+                        <option value="relax">慢节奏休闲</option>
+                        <option value="explore" selected>深度探索</option>
+                        <option value="family">亲子乐园</option>
+                        <option value="luxury">高端定制</option>
+                        <option value="hidden">小众秘境</option>
+                    </select>
+                </div>
+                <button class="btn" id="saveProfileBtn">✅ 保存基础信息</button>
+                <div class="profile-note">先填写您的年龄段和旅行偏好，AI定制规划将更贴合您的真实需求。</div>
+            </div>
+        </div>
+
+        <!-- ========== 智能定制（增强版 + 人群已调整：移除“新增亲子”标签，增加“其他”） ========== -->
+        <div class="section-card">
+            <div class="card-header">🧠 智能定制 · AI深度规划</div>
+            <div class="card-body">
+                <div class="form-row"><label>📍 目的地</label><input type="text" id="destination" value="云南·大理"></div>
+                <div class="form-row">
+                    <label>📅 出行天数</label>
+                    <div style="display: flex; gap: 8px;">
+                        <select id="daysSelect" style="flex:1">
+                            <option value="2">2天1晚</option>
+                            <option value="3" selected>3天2晚</option>
+                            <option value="4">4天3晚</option>
+                            <option value="5">5天4晚</option>
+                        </select>
+                        <input type="number" id="customDays" placeholder="自定义天数" min="1" max="10" style="flex:1">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <label>👥 人群属性</label>
                     <select id="crowd">
-                        <option value="student">🎓 大学生 (高性价比)</option>
-                        <option value="worker" selected>💼 上班族 (错峰微度假)</option>
-                        <option value="elder">🧓 老年人 (康养慢游)</option>
-                        <option value="group">🏢 企业团体 (团建研学)</option>
+                        <option value="student">🎓 大学生</option>
+                        <option value="worker" selected>💼 上班族</option>
+                        <option value="elder">🧓 老年人</option>
+                        <option value="family">👨‍👩‍👧 亲子家庭</option>
+                        <option value="group">🏢 企业团体</option>
+                        <option value="other">✨ 其他</option>
                     </select>
                 </div>
-                <div class="form-row">
-                    <label>特殊偏好 (可选)</label>
-                    <input type="text" id="preference" placeholder="饮食偏好/身体状况/小众体验等" value="摄影打卡+当地美食">
-                </div>
-                <button class="btn" id="generatePlanBtn">✨ AI生成专属行程</button>
+                <div class="form-row"><label>💬 特殊需求</label><input type="text" id="preference" placeholder="如：带娃、轮椅、素食等" value="摄影打卡+当地美食"></div>
+                <button class="btn" id="generatePlanBtn">✨ AI生成专属行程（DeepSeek增强）</button>
+                <div class="profile-note">提示：如果您已经完成“第一步：基础信息采集”，系统将优先使用您的年龄段与旅行偏好进行规划。</div>
                 <div id="planResult" class="plan-result"></div>
-                <div style="margin-top: 12px; font-size: 0.7rem; color: #6c7a91; text-align: center;">💡 人工管家将根据偏好精细化调整，VIP用户享一对一深度定制</div>
+                <div style="margin-top: 12px; font-size: 0.7rem; color: #6c7a91; text-align: center;">💡 已预留DeepSeek API接口，内容详尽贴心</div>
             </div>
         </div>
+
+        <!-- ========== 个性化筛选入口 ========== -->
         <div class="section-card">
-            <div class="card-header">📦 一站式预订 · 无需切换APP</div>
+            <div class="card-header">🔍 个性化筛选 · 快速匹配</div>
             <div class="card-body">
-                <div class="booking-item"><div><span class="booking-name">🚄 高铁票 (大理往返)</span><br><span class="tag-sm">学生/团体专属通道</span></div><div class="price">¥328起</div></div>
-                <div class="booking-item"><div><span class="booking-name">🏨 古城精品客栈</span><br><span class="tag-sm">合作商家折扣</span></div><div class="price">¥189/晚</div></div>
-                <div class="booking-item"><div><span class="booking-name">🎫 崇圣寺三塔+洱海游船</span></div><div class="price">¥158</div></div>
-                <div class="booking-item"><div><span class="booking-name">🍜 特色美食套餐 (白族风味)</span></div><div class="price">¥68</div></div>
-                <button class="btn btn-outline" id="bookNowBtn" style="margin-top: 8px;">一键预订 · 享VIP折上折</button>
+                <div class="form-row"><label>年龄段</label><select id="ageFilter"><option>18-25岁</option><option>26-35岁</option><option>36-50岁</option><option>50岁以上</option></select></div>
+                <div class="form-row"><label>旅行主题</label><select id="themeFilter"><option>自然风光</option><option>城市探索</option><option>亲子乐园</option><option>文化古迹</option><option>海滨度假</option></select></div>
+                <button class="btn-outline" id="filterMatchBtn" style="width:100%">🎯 为我推荐匹配行程</button>
             </div>
         </div>
+
+        <!-- ========== 旅游AI管家（对话） ========== -->
         <div class="section-card">
-            <div class="card-header">🛎️ 行中服务 · 全程贴心配套</div>
+            <div class="card-header">🤖 旅游AI管家 · 智能对话</div>
             <div class="card-body">
-                <div class="service-grid">
-                    <div class="service-chip">✈️ 高铁/机场免费接送</div>
-                    <div class="service-chip">🧳 行李代寄存</div>
-                    <div class="service-chip">🏨 酒店优先入住</div>
-                    <div class="service-chip">📞 24h人工管家</div>
-                    <div class="service-chip">🚨 突发应急响应</div>
+                <div id="chatMessages" style="height: 200px; overflow-y: auto; background: #f8fafc; border-radius: 1rem; padding: 8px; margin-bottom: 8px;">
+                    <div class="chat-message"><span class="chat-ai">🤖 管家</span><br>您好！我是您的专属旅行AI助手，可以为您推荐路线、解答景点问题、提供行前建议。请问有什么可以帮您？</div>
                 </div>
-                <div style="background: #eef6ef; border-radius: 1rem; padding: 0.7rem; margin-top: 12px;">
-                    <span style="font-weight: 600;">⭐ VIP专属特权</span><br>
-                    <span style="font-size: 0.75rem;">开通VIP会员，即享接送/寄存/管家实时应答，让旅行无忧</span>
-                    <button class="btn-outline" id="vipUpgradeBtn" style="margin-top: 8px; width: auto; padding: 0.4rem 1rem; font-size:0.75rem;">升级VIP · 体验尊享</button>
+                <div style="display: flex; gap: 8px;">
+                    <input type="text" id="chatInput" placeholder="问点旅行的事..." style="flex:1">
+                    <button class="btn-outline" id="sendChatBtn" style="width: auto; padding: 0 1rem;">发送</button>
                 </div>
             </div>
         </div>
+
+        <!-- ========== 社交交流区（贴吧风格） ========== -->
         <div class="section-card">
-            <div class="card-header">🎨 特色体验 · "旅行+"深度玩法</div>
+            <div class="card-header">💬 社交交流区 · 旅行分享</div>
             <div class="card-body">
-                <div class="experience-list">
-                    <div class="exp-item"><span>🎭 白族扎染非遗体验</span><span class="price">¥98起</span></div>
-                    <div class="exp-item"><span>📸 洱海旅拍 (专业跟拍)</span><span class="price">¥299</span></div>
-                    <div class="exp-item"><span>🌿 康养温泉疗愈套餐</span><span class="price">¥168</span></div>
-                    <div class="exp-item"><span>🍵 小众茶园采茶制茶</span><span class="price">¥128</span></div>
+                <div id="postsList">
+                    <div class="post-item"><div class="post-title">🔥 大理小众拍照地推荐</div><div class="post-content">洱海边上的鹿卧山，日落绝美！还有喜洲古镇的稻田，强烈推荐！</div><div class="post-meta"><span>👍 24点赞</span><span>👤 旅行家小陈</span></div></div>
+                    <div class="post-item"><div class="post-title">👨‍👩‍👧 亲子游：昆明融创海世界</div><div class="post-content">孩子玩得很开心，还有美人鱼表演，适合全家出动。</div><div class="post-meta"><span>👍 18点赞</span><span>👤 宝妈爱旅行</span></div></div>
                 </div>
-                <div class="tag-sm" style="margin-top: 8px;">✨ 本地妆造/非遗/旅拍联动，解锁独家记忆</div>
+                <div class="form-row" style="margin-top: 12px;"><textarea id="newPostContent" rows="2" placeholder="分享你的旅行故事或提问..."></textarea></div>
+                <div class="form-row"><input type="text" id="postTitle" placeholder="标题（选填）"></div>
+                <button class="btn-outline" id="publishPostBtn">📝 发布帖子</button>
             </div>
         </div>
-        <div class="section-card">
-            <div class="card-header">👤 个人中心 · 反馈优化闭环</div>
-            <div class="card-body">
-                <div class="menu-row" id="myOrdersBtn"><span>📋 我的订单</span><span style="color:#1e6f3f;">查看全部 &gt;</span></div>
-                <div class="menu-row" id="vipCenterBtn"><span>⭐ 会员中心 (VIP等级)</span><span style="color:#facc15;">普通会员 → 升级</span></div>
-                <div class="menu-row" id="favoritesBtn"><span>❤️ 收藏的行程/打卡地</span><span>3个收藏</span></div>
-                <div class="feedback-area">
-                    <label style="margin-top: 8px;">📝 旅行体验反馈 (帮助我们持续优化)</label>
-                    <textarea rows="2" id="feedbackInput" placeholder="分享您的建议或好评，让行程更精准..."></textarea>
-                    <button class="btn-outline" id="submitFeedbackBtn" style="margin-top: 8px; width: 100%;">提交反馈 · 优化闭环</button>
-                    <div style="font-size: 0.7rem; color: #4b5563; margin-top: 8px;">✅ 反馈将驱动AI算法迭代，行后优化服务流程</div>
-                </div>
-            </div>
-        </div>
-        <div style="text-align: center; font-size: 0.7rem; color: #7e8b9c; padding: 0.5rem 0 1rem;">🧩 基础AI规划免费 · VIP解锁人工管家/接送/专属折扣</div>
+
+        <!-- 一站式预订 / 行中服务模块 -->
+        <div class="section-card"><div class="card-header">📦 一站式预订</div><div class="card-body"><div class="booking-item"><div>🚄 高铁票 (大理往返)</div><div class="price">¥328起</div></div><div class="booking-item"><div>🏨 古城精品客栈</div><div class="price">¥189/晚</div></div><button class="btn-outline" id="bookNowBtn">一键预订</button></div></div>
+        <div class="section-card"><div class="card-header">🛎️ 行中服务</div><div class="card-body"><div class="service-grid"><div class="service-chip">✈️ 免费接送</div><div class="service-chip">🧳 行李寄存</div><div class="service-chip">📞 24h管家</div></div></div></div>
     </div>
 </div>
 <div id="toastMsg" class="toast-msg"></div>
+
 <script>
-    function showToast(message, duration = 2000) {
+    // ==================== DeepSeek API 配置（可选） ====================
+    const DEEPSEEK_API_KEY = "YOUR_DEEPSEEK_API_KEY";   
+    const USE_REAL_API = false;  // 设置为true并填写正确密钥可启用真实API
+    // ================================================================
+
+    let userProfile = {
+        ageGroup: '26-35',
+        preferences: ['摄影'],
+        travelStyle: 'explore'
+    };
+
+    function showToast(msg) {
         const toast = document.getElementById('toastMsg');
-        toast.textContent = message;
+        toast.textContent = msg;
         toast.style.opacity = '1';
-        setTimeout(() => { toast.style.opacity = '0'; }, duration);
+        setTimeout(() => toast.style.opacity = '0', 2000);
     }
-    function planGenerator(destination, days, crowd, preference) {
-        let basePlan = `✨ 您的专属「${destination}」${days}天行程已生成 (AI初版)\n`;
-        if (crowd === 'student') basePlan += `🎓 大学生高性价比路线：\n• Day1: 免费/小众打卡地+青旅推荐，学生票景点优先\n• Day2: 地道夜市美食+结伴拼车攻略\n• Day3: 人文博物馆+集章体验\n✅ 人工管家提示：可叠加学生票专属通道，节省30%门票开支。`;
-        else if (crowd === 'worker') basePlan += `💼 上班族错峰微度假计划：\n• Day1: 下午出发，直达核心景区，夜游精华\n• Day2: 轻徒步+特色咖啡馆，高效打卡\n• Day3: 睡到自然醒，返程前体验旅拍\n💡 人工管家: 已为您避开周末高峰，附加接送服务推荐。`;
-        else if (crowd === 'elder') basePlan += `🧓 康养慢游行程 (配陪游建议)：\n• 每日景点不超过3个，充足休息\n• 安排无障碍接驳车 + 中医理疗体验\n• 地道养生膳食 + 紧急联系保障\n👵 管家服务：可配备专属陪游员，全程安心。`;
-        else basePlan += `🏢 企业团建研学定制方案：\n• Day1: 破冰拓展+场地专属\n• Day2: 非遗手作工坊+团队挑战\n• Day3: 总结复盘+特色晚宴\n📌 人工管家已对接场地与餐饮，支持专属折扣。`;
-        if (preference && preference.trim() !== "") basePlan += `\n\n🎯 根据您的偏好「${preference}」，管家将加入：特色美食探访/个性化摄影点/深度文化讲解，VIP可解锁一对一调整。`;
-        basePlan += `\n\n🔔 本行程可在线可视化调整，点击下方联系人工管家微调。`;
-        return basePlan;
+
+    function getSelectedPreferences() {
+        let prefs = [];
+        document.querySelectorAll('.pref-group input[type="checkbox"]:checked').forEach(cb => prefs.push(cb.value));
+        return prefs;
     }
-    document.getElementById('generatePlanBtn').addEventListener('click', () => {
+
+    function saveUserProfile() {
+        userProfile.ageGroup = document.getElementById('ageGroup').value;
+        userProfile.preferences = getSelectedPreferences();
+        userProfile.travelStyle = document.getElementById('travelStyle').value;
+        showToast('基础信息已保存，AI规划将更精准');
+    }
+
+    function getPlanContext(crowd, prefsArr) {
+        let ctx = `年龄段：${userProfile.ageGroup}，旅行风格：${userProfile.travelStyle}`;
+        if (prefsArr.length) ctx += `，偏好：${prefsArr.join('、')}`;
+        if (crowd === 'other') ctx += '，已启用个性化定制';
+        return ctx;
+    }
+
+    // 增强模拟行程（支持新增的“其他”人群）
+    function getMockPlan(dest, days, crowd, pref, prefsArr) {
+        let plan = `✨ 为您量身定制的「${dest}」${days}天深度行程 ✨\n\n`;
+        plan += `根据您的基础信息：年龄段【${userProfile.ageGroup}】、旅行风格【${userProfile.travelStyle}】\n\n`;
+        if (crowd === 'family') {
+            plan += `👨‍👩‍👧 亲子家庭专属 · 慢节奏+亲子乐园\n`;
+            plan += `Day1: 上午抵达，入住亲子酒店 → 下午游览【洱海生态廊道】骑行（提供儿童拖车）→ 晚上品尝白族特色菜（少辣）。\n`;
+            plan += `Day2: 上午【大理海洋世界】看海豚表演 → 下午【花语牧场】DIY鲜花饼 → 晚上逛古城，买小工艺品。\n`;
+            plan += `Day3: 上午【喜洲古镇】体验白族扎染（亲子手工）→ 下午【周城】参观，返回。\n`;
+            plan += `🍜 美食推荐：喜洲粑粑、乳扇、菌子火锅。\n📌 小贴士：租车选择儿童座椅，备好防晒霜。`;
+        } else if (crowd === 'student') {
+            plan += `🎓 大学生高性价比路线（省钱秘籍）\nDay1: 大理古城免费景点打卡（五华楼、洋人街）→ 人民路地道小吃（烤饵块¥5）→ 晚上住青旅（¥40/晚）。\nDay2: 骑行洱海西线（租电动车¥50/天）→ 喜洲古镇免费稻田拍照 → 海舌公园。\nDay3: 苍山徒步（学生证门票半价）→ 寂照庵吃素斋（¥20）。\n💡 省心贴士：拼车更划算，带学生证。`;
+        } else if (crowd === 'worker') {
+            plan += `💼 上班族放松微度假\nDay1: 下午高铁直达，入住设计民宿 → 傍晚龙龛码头看日落 → 深夜小酒馆听民谣。\nDay2: 上午寂照庵多肉花园 → 下午环海东路（双廊）拍照 → 晚上体验白族火塘。\nDay3: 自然醒，买伴手礼（鲜花饼），返程。\n🎁 特别安排：赠送旅拍9张。`;
+        } else if (crowd === 'elder') {
+            plan += `🧓 康养慢游 · 节奏舒缓\nDay1: 专车接站，入住无障碍酒店 → 大理古城散步（平缓路面）→ 晚餐养生粥。\nDay2: 上午崇圣寺三塔（电瓶车游览）→ 下午洱海游船（不累）→ 中医理疗体验。\nDay3: 喜洲古镇马车观光 → 返程前购买药材。\n👵 陪游服务：可安排护工陪同。`;
+        } else if (crowd === 'group') {
+            plan += `🏢 企业团建研学定制\nDay1: 破冰游戏+苍山徒步定向 → 晚上团队烧烤。\nDay2: 非遗手作（扎染）+ 团队皮划艇竞赛 → 篝火晚会。\nDay3: 总结复盘会 + 大理文化讲座。\n📌 场地已对接，含团餐折扣。`;
+        } else {
+            // “其他”人群 灵活定制
+            plan += `✨ 专属个性方案（根据您的独特需求打造）\n`;
+            plan += `Day1: 抵达后专属向导接机 → 私人定制路线（可根据兴趣自由调整）→ 入住特色民宿。\n`;
+            plan += `Day2: 探索当地秘境（非大众景点）→ 跟随本地达人体验地道生活 → 夜晚观星/篝火。\n`;
+            plan += `Day3: 自由活动 + 特色手作体验 → 返程前可购买伴手礼。\n`;
+            plan += `📌 由于您选择了“其他”，我们会安排人工管家一对一沟通，完全贴合您的想象力。`;
+        }
+        if (prefsArr.length) plan += `\n🎯 根据您的偏好【${prefsArr.join(',')}】，我们额外推荐：${prefsArr.includes('摄影')?'拍摄点：磻溪村S弯、兴盛大桥；':''}${prefsArr.includes('美食')?'必吃：酸辣鱼、生皮、木瓜鸡。':''}${prefsArr.includes('文化')?'可参观大理博物馆、白族民居。':''}`;
+        if (pref.trim()) plan += `\n✨ 特殊需求已记录：“${pref}”，管家会一对一跟进。`;
+        plan += `\n\n🔔 如需调整，请呼唤人工管家。`;
+        return plan;
+    }
+
+    // 生成最终行程（模拟API，同时预留真实接口）
+    async function generateDetailedPlan(destination, days, crowd, customPref, preferences) {
+        if (USE_REAL_API && DEEPSEEK_API_KEY !== "YOUR_DEEPSEEK_API_KEY") {
+            try {
+                const prompt = `你是一个资深旅行规划师。请为以下用户生成一份非常详细、具体、包含景点、美食、交通建议的行程规划：目的地：${destination}，天数：${days}天，人群：${crowd}，年龄段：${userProfile.ageGroup}，旅行风格：${userProfile.travelStyle}，特殊需求：${customPref}，偏好：${preferences.join(',')}。要求每天上午、下午、晚上活动清晰，并推荐地道餐厅和小贴士。输出格式使用Markdown列表。`;
+                const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${DEEPSEEK_API_KEY}`
+                    },
+                    body: JSON.stringify({
+                        model: 'deepseek-chat',
+                        messages: [{ role: 'user', content: prompt }],
+                        temperature: 0.7,
+                        max_tokens: 1500
+                    })
+                });
+                const data = await response.json();
+                if (data.choices && data.choices[0]) return data.choices[0].message.content;
+                else throw new Error('API返回异常');
+            } catch(e) {
+                console.warn("API调用失败，使用模拟数据", e);
+                return getMockPlan(destination, days, crowd, customPref, preferences);
+            }
+        } else {
+            return getMockPlan(destination, days, crowd, customPref, preferences);
+        }
+    }
+
+    // 智能定制按钮逻辑
+    document.getElementById('saveProfileBtn').addEventListener('click', saveUserProfile);
+
+    document.getElementById('generatePlanBtn').addEventListener('click', async () => {
         const destination = document.getElementById('destination').value.trim();
         if (!destination) { showToast('请填写目的地～'); return; }
-        const days = document.getElementById('days').value;
-        const daysText = document.getElementById('days').options[document.getElementById('days').selectedIndex]?.text || days+"天";
+        let days = document.getElementById('daysSelect').value;
+        const customDays = document.getElementById('customDays').value;
+        if (customDays && parseInt(customDays) > 0) days = customDays;
         const crowd = document.getElementById('crowd').value;
         const preference = document.getElementById('preference').value;
-        const planContent = planGenerator(destination, daysText, crowd, preference);
-        const planResultDiv = document.getElementById('planResult');
-        planResultDiv.style.display = 'block';
-        planResultDiv.innerHTML = `<div style="font-weight:600; margin-bottom:6px;">✈️ 优途AI · 行程框架</div><div style="white-space: pre-line; font-size:0.8rem;">${planContent}</div><div style="margin-top:10px;"><button id="contactManualBtn" style="background:#f3f4f6; border:1px solid #ccc; border-radius:40px; padding:5px 12px; font-size:0.75rem;">📱 联系人工管家精调</button></div>`;
+        const prefs = getSelectedPreferences();
+        const planText = await generateDetailedPlan(destination, days, crowd, preference, prefs);
+        const resultDiv = document.getElementById('planResult');
+        resultDiv.style.display = 'block';
+        resultDiv.innerHTML = `<div style="font-weight:600">✈️ 优途AI · 详细行程</div><div style="white-space: pre-line; font-size:0.8rem;">${planText}</div><div style="margin-top:10px;"><button id="contactManualBtn" style="background:#f3f4f6; border:1px solid #ccc; border-radius:40px; padding:5px 12px;">📱 联系人工管家微调</button></div>`;
         const manualBtn = document.getElementById('contactManualBtn');
-        if (manualBtn) manualBtn.addEventListener('click', () => showToast('人工管家已收到请求，稍后将与您1对1沟通 (VIP优先响应)'));
-        showToast('行程规划生成中，人工管家将结合偏好深度优化');
+        if (manualBtn) manualBtn.onclick = () => showToast('人工管家已收到请求，VIP优先响应');
+        showToast('行程生成完毕，可继续优化');
     });
-    document.getElementById('bookNowBtn')?.addEventListener('click', () => showToast('预订功能演示：已为您整合交通+住宿+门票，VIP享折上折。'));
-    document.getElementById('submitFeedbackBtn')?.addEventListener('click', () => {
-        const feedback = document.getElementById('feedbackInput').value.trim();
-        if (!feedback) { showToast('请写下您的旅行体验或建议～'); return; }
-        showToast('❤️ 感谢您的反馈！平台将根据您的建议优化行程算法与服务流程。');
-        document.getElementById('feedbackInput').value = '';
+
+    // AI管家对话模拟
+    const chatMessages = document.getElementById('chatMessages');
+    function addMessage(sender, text) {
+        const msgDiv = document.createElement('div');
+        msgDiv.className = 'chat-message';
+        msgDiv.innerHTML = `<span class="${sender === 'user' ? 'chat-user' : 'chat-ai'}">${sender === 'user' ? '👤 我' : '🤖 管家'}</span><br>${text}`;
+        chatMessages.appendChild(msgDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+    document.getElementById('sendChatBtn').addEventListener('click', () => {
+        const input = document.getElementById('chatInput');
+        const question = input.value.trim();
+        if (!question) return;
+        addMessage('user', question);
+        setTimeout(() => {
+            let reply = '';
+            if (question.includes('天气')) reply = '大理近期白天20°C左右，早晚温差大，建议带薄外套。';
+            else if (question.includes('美食')) reply = '推荐尝试：酸辣鱼、乳扇、凉鸡米线、永平黄焖鸡！';
+            else if (question.includes('带娃')) reply = '亲子推荐：海洋世界、花语牧场、洱海生态廊道骑行（有儿童车租赁）。';
+            else if (question.includes('其他') || question.includes('定制')) reply = '如果您有特殊需求，可以选择“其他”人群属性，我们将为您提供极致个性化的方案。';
+            else reply = '感谢您的提问，我们的行程规划师正在准备详细答案。建议您使用上方AI定制行程功能，或直接联系人工管家。';
+            addMessage('ai', reply);
+        }, 500);
+        input.value = '';
     });
-    document.getElementById('vipUpgradeBtn')?.addEventListener('click', () => showToast('升级VIP会员：免费接送、行李寄存、人工管家全配套'));
-    document.getElementById('myOrdersBtn')?.addEventListener('click', () => showToast('查看订单记录：您暂无订单，快去定制旅程吧'));
-    document.getElementById('vipCenterBtn')?.addEventListener('click', () => showToast('VIP会员享接送/折扣/24h管家，每月仅29.9元起'));
-    document.getElementById('favoritesBtn')?.addEventListener('click', () => showToast('收藏的洱海旅拍、非遗体验等，随时可加入行程'));
-    document.querySelectorAll('.exp-item').forEach(item => {
-        item.addEventListener('click', () => showToast(`已选「${item.querySelector('span:first-child')?.innerText}」，可一键加入行程`));
+
+    // 社交区发布帖子
+    document.getElementById('publishPostBtn').addEventListener('click', () => {
+        const title = document.getElementById('postTitle').value.trim() || "无标题分享";
+        const content = document.getElementById('newPostContent').value.trim();
+        if (!content) { showToast('请填写帖子内容'); return; }
+        const postsDiv = document.getElementById('postsList');
+        const newPost = document.createElement('div');
+        newPost.className = 'post-item';
+        newPost.innerHTML = `<div class="post-title">📢 ${escapeHtml(title)}</div><div class="post-content">${escapeHtml(content)}</div><div class="post-meta"><span>👍 0点赞</span><span>👤 当前用户</span></div>`;
+        postsDiv.prepend(newPost);
+        document.getElementById('postTitle').value = '';
+        document.getElementById('newPostContent').value = '';
+        showToast('发布成功！');
     });
-    document.querySelectorAll('.booking-item').forEach(item => {
-        item.addEventListener('click', () => showToast('正在预订，一站式结算享平台补贴'));
-    });
-    document.querySelectorAll('.qa-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            if (btn.innerText.includes('AI定制')) showToast('智能定制已准备就绪，请填写上方信息');
-            else if (btn.innerText.includes('订单')) showToast('查看我的订单');
-            else showToast('人工管家在线，VIP优先响应');
+    function escapeHtml(str) {
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
         });
+    }
+
+    // 个性化筛选匹配按钮
+    document.getElementById('filterMatchBtn').addEventListener('click', () => {
+        const age = document.getElementById('ageFilter').value;
+        const theme = document.getElementById('themeFilter').value;
+        showToast(`根据年龄${age}、主题${theme}，为您推荐：大理/丽江定制路线、小众文艺之旅等3条路线。详情请联系管家。`);
     });
+
+    // 预订按钮等基础交互
+    document.getElementById('bookNowBtn')?.addEventListener('click', () => showToast('预订演示：一站式预订，VIP享折上折'));
+    document.querySelectorAll('.qa-btn').forEach(btn => btn.addEventListener('click', (e) => {
+        if (btn.innerText.includes('AI管家')) showToast('打开AI管家，请在上方聊天区提问');
+        else showToast('功能开发中，敬请期待');
+    }));
+    // 确保任何情况下偏好区域的事件正确绑定（已经存在）
 </script>
 </body>
 </html>
